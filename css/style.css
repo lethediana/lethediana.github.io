@@ -8864,11 +8864,6 @@ pre .deletion {
   position: relative;
   transition: opacity 0.3s ease;
 }
-@media (max-width: 500px) {
-  .aplayer {
-    display: none;
-  }
-}
 .aplayer.hide {
   opacity: 0;
   transition: opacity 0.3s ease;
