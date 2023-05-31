@@ -32,8 +32,16 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/64760637f024cca173cf8800.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/64760741f024cca173d07653.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/647609d3f024cca173d3097e.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/647724bef024cca173ed1973.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/64772716f024cca173eff01e.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/64772891f024cca173f1300e.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/64772891f024cca173f13023.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/64772891f024cca173f13064.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/64772891f024cca173f1307a.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/647728e7f024cca173f1de66.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/647728e7f024cca173f1deba.png">
 <meta property="article:published_time" content="2023-05-30T12:17:12.000Z">
-<meta property="article:modified_time" content="2023-05-30T14:50:02.031Z">
+<meta property="article:modified_time" content="2023-05-31T11:12:33.897Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="深度学习  神经网络  Resnet50">
 <meta name="twitter:card" content="summary">
@@ -449,8 +457,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-05-30 22:50:02</span>
-            <span class="mobile">2023-05-30 22:50</span>
+            <span class="desktop">2023-05-31 19:12:33</span>
+            <span class="mobile">2023-05-31 19:12</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -572,15 +580,110 @@ Lena
 
 
 
+<div class="note-large notel-blue"><div class="notel-title"><p>三、图像的色彩空间</p>
+</div><div class="notel-content"><p>上一章从像素开始，聊到了RGB 这一常见的色彩空间模型。<br>之所以还想继续聊聊RGB 以及另一种色彩空间模型-YUV ，不是说想要以后去学摄影，学学如何需要调节色度、曝光和饱和度啥的。<br>而是在图像识别的深度学习任务中，RGB以及YUV这些概念，总是会时不时的出现一下，让枯燥无味且高度抽象的深度学习算法，突然之间，变得具体一些，光鲜一些。</p>
+<div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p>RGB</p>
+</div>
+Red，Green，Blue（RGB）是我们最常见的图像表示方法。这个非常好理解，三原色的融合，几乎可以构造出所有需要的颜色。三张RGB分量图片的融合，就可以构成一幅色彩斑斓的图片。
+原图与R G B 三个分量图片
 
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/647724bef024cca173ed1973.jpg"
+                      alt="图片" title="kan xin"
+                ><br>平时我们说，分辨率为1920*1080的图片，它代表的是在长宽两个方向上，有 1920 * 1080 个像素，但是，在色彩这个方向上，还有 3 个通道（channel），也就是RGB，往往被我们忽略。<br>我们看到的一个像素点的颜色，在计算系统中，并不是简单的由一个数值来表示的，而是由RGB三个分量的三个数值来表示的。<br>一个像素点的 RGB 表示</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/64772716f024cca173eff01e.png"
+                      alt="图片" title="kan men"
+                ><br>因此，想要计算一张1920*1080的图片的大小，或者说计算这张图片在计算机内存中所占用的大小时，不能仅仅用图片的长度乘以宽度这么算，还需要考虑通道数。</p>
+<div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p>数值表示和图片大小计算</p>
+</div>
+我们可能用过画图这一软件来调过颜色。
+通过简单的设置红色，绿色，蓝色的数值，就可以在调色板中得到一个颜色。有没有注意到，无论红色，还是绿色，还是蓝色，其表示的数值都没有超过255。
+为什么？因为像素值，在计算机语言中，是用一个 int8 的数据来表示的。而 int8，指的是 8bit 无符号整数，其能表示的范围就是 0 - 255。
+说到这，我们就可以算一算，一张1920 * 1080 的RGB图像，在计算机的表示中，到底占多少的内存？
+很简单，长宽方向上每个像素由 3 个通道组成，每个通道由一个 8 bit 的数值表示，一个 8 bit 数值代表一个字节（Byte）。
+因此，一张1920 * 1080的 RGB 图像，占计算机存储大小为1920* 1080 * 3 * 1 Bytes = 6075 KB = 5.9 MB5.9 MB 的内存占用！
+大么？和目前动辄几个G的手机内存相比，不算大。
+小么？和边缘侧图像识别终端内存，比如摄像头里的嵌入式芯片内存相比，又不算小。
+更何况在公路违法拍照的摄像头场景下，在车流量很大的时候，需要实时处理的图片，可远远不止一张！
+那怎么办？有没有办法可以在进行图像处理时，减少图片的数据量，从而减少图片大小和内存占用呢？
+有，YUV就是其中一种办法。
+<div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p>YUV</p>
+</div>
+YUV是将亮度信息和颜色信息进行编码的一种颜色空间表示方法。和RGB类似，YUV 也使用3个字母维度来表示颜色。为了简单点，我们暂时将这3个值称为Y，U和V。（事实上，YUV的称呼很多，比如Y'CbCr，也很细节，这里不多描述，我们只要知道它是另外一种表示颜色的方法就可以。）
+Y 代表亮度，U 代表色彩度，V代表饱和度。
+原图
 
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/64772891f024cca173f1300e.png"
+                      alt="图片" title="kan men"
+                ><br>仅有Y分量也就是亮度，黑白图片</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/64772891f024cca173f13023.png"
+                      alt="图片" title="kan men"
+                ><br>仅有U分量，只有色度</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/64772891f024cca173f13064.png"
+                      alt="图片" title="kan men"
+                ><br>仅有V分量，只有饱和度</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/64772891f024cca173f1307a.png"
+                      alt="图片" title="kan men"
+                ><br>上面的几张图片，除了原图之外，我们可能更加倾向于使用只有Y分量的图片，也就是那张黑白图像。<br>因为即使没有色彩，但是它的轮廓以及明亮程度，也足以让我们分辨出图片中的物体。其视觉效果远远好于其他两个分量的图片。相反，只有色度和饱和度的图片，反而变得模糊不堪。<br>这就是问题所在！人眼对于亮度具有更高的敏感度，而对色度和饱和度反而显得迟钝一些。<br>说到这，有没发现什么？既然人眼对于色度和饱和度的反应不敏感，那就没有必要把所有的色度和饱和度信息都放在图片里了啊。<br>举个例子，色度和饱和度我隔一个像素放一个，剩下的像素没有饱和度，不就可以了么。没错，是可以，而且效果很好。<br>这就是YUV的不同编码。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/647728e7f024cca173f1de66.png"
+                      alt="图片" title="kan men"
+                ><br>YUV422编码<br>实际上，YUV的编码方式有很多种，比如YUV444, YUV422等。<br>大致意思就是，保留全部的Y分量（人眼最敏感的亮度分量），但是只保留部分的U&#x2F;V分量（人眼不敏感），以此来减少图片的占用，但又不失重要信息。<br>还记得上面的1920<em>1080的RGB图片的内存占用么，为5.9MB。如果用YUV444的编码，结果也同样是5.9MB，因为YUV444也是全采样，所有的亮度、色度、饱和度信息都保留了。而如果采用YUV422的编码，相当于U分量减少一半，V分量减少一半。<br>那么最终的图片占用大小就变成了1920</em> 1080 * (1 + 0.5 + 0.5) Bytes &#x3D; 4050KB &#x3D; 3.9MB<br>只有3.9MB，减少了1&#x2F;3的内存占用！是不是好很多？更多关于YUV的编码知识，有兴趣的同学可以Google。如果不做相关课题，可以不用深究。<br>我们只需要知道，YUV这一色彩编码方法，在保留亮度这一人眼最敏感信息的基础上，通过降低其他人眼不太需要的信息，可以来达到降低图片大小的目的。<br>就足够了！</p>
+<div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p>YUV编码的用途</p>
+</div>
+原始图片，channel数代表的是RGB通道，可以理解为原始图片具有的三个特征。
+可在深度学习网络中，随着网络深度的增加，图片的channel数会不断的增大。就拿Resnet50这个网络来说，最后面的一层图片，channel数已经增大到了2048。这时channel代表的信息，早已不再是RGB这种基础的特征了。而是通过了大量的神经网络训练，代表了图片的多种分类特征，比如是猫的特征还是狗的特征。
+这个后面会详细说。
+YUV这种编码方法，可以用在图片的上下采样中。通过降低或增加通道数，实现图片的上下采样，以此来实现图片的增大或减少，但又不损失太多我们希望保留的信息。
+<div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p>总结一下</p>
+</div>
+这章聊了聊RGB、YUV 两种颜色空间，以及YUV可能的用途和它的优势。
+为什么聊这么多关于图片的东西，因为在深度学习处理图像的任务中，图片是原材料。正所谓知己知彼，百战不殆。
+了解了图片这一深度学习的原材料之后，我们就可以更加高效的来完成图片数据的处理和分析。就可以开始图像识别的算法之旅了！
+<div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p>加餐</p>
+</div>
+公元663年，唐代诗人王勃游历南昌，登滕王阁而做序，大笔一挥，豪气万丈。
+当时的王勃，傲立在滕王阁楼顶时，看到的应该是怎样的一副壮美图景，才使得中国文坛留下了一句千古绝唱。
+<div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p>潦水尽而寒潭清， 烟光凝而暮山紫。</p>
+</div>
+当时的王勃，应该怎么也不会想到，1000年后的今天，聪明华夏后人，将"暮山紫"这一颜色进行了编码。从此，暮山紫，不只存在于人们的想象中，而是精确地存在了计算机里。
 
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/647728e7f024cca173f1deba.png"
+                      alt="图片" title="kan men"
+                ><br>暮山紫-RGB：163 171 214 |</p>
+ </div></div>
+
+<div class="note-large notel-blue"><div class="notel-title"><p>参考文章</p>
+</div><div class="notel-content"><p>后续内容 -&gt; 初识卷积<br><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/554100794" >知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+ </div></div>
 
 <div class="note note-warning icon-padding"><i class="note-icon fa-solid fa-exclamation-circle"></i><p>本人时间精力能力有限，也是刚开始学习这方面内容，准备参赛</p>
 </div>
 <div class="note note-warning icon-padding"><i class="note-icon fa-solid fa-exclamation-circle"></i><p>文中一些表述难免有疏漏，若有错误请联系我进行更正,谢谢</p>
 </div>
-<div class="note note-warning icon-padding"><i class="note-icon fa-solid fa-exclamation-circle"></i><p>QQ Email邮箱：<a class="link"   href="mailto:&#49;&#55;&#x39;&#53;&#56;&#x34;&#55;&#x38;&#54;&#51;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#x6d;" >&#49;&#55;&#x39;&#53;&#56;&#x34;&#55;&#x38;&#54;&#51;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#x6d; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div class="note note-warning icon-padding"><i class="note-icon fa-solid fa-exclamation-circle"></i><p>QQ Email邮箱：<a class="link"   href="mailto:&#49;&#x37;&#x39;&#53;&#56;&#x34;&#55;&#56;&#54;&#51;&#64;&#113;&#x71;&#46;&#99;&#x6f;&#109;" >&#49;&#x37;&#x39;&#53;&#56;&#x34;&#55;&#56;&#54;&#51;&#64;&#113;&#x71;&#46;&#99;&#x6f;&#109; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </div>
             </div>
 
@@ -593,7 +696,7 @@ Lena
         <li><strong>Created at:</strong> 2023-05-30 20:17:12</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-05-30 22:50:02
+                <strong>Updated at:</strong> 2023-05-31 19:12:33
             </li>
         
         <li>
